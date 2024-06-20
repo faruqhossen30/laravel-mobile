@@ -12,6 +12,8 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PortfoliopageController;
 use App\Http\Controllers\PricepageController;
+use App\Http\Controllers\ProductCompareController;
+use App\Http\Controllers\ProductPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewpageController;
 use App\Http\Controllers\ReviewSubmitController;
@@ -34,12 +36,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
 Route::get('/test', function () {
     return view('test');
 });
 
-
+Route::get('/',[HomepageController::class,'Homepage'])->name('homepage');
+Route::get('/products',[ProductPageController::class,'products'])->name('productpage');
+Route::get('/single-product',[ProductPageController::class,'singleProduct'])->name('product.single');
+Route::get('/product-compare',[ProductCompareController::class,'productCompare'])->name('product.compare');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

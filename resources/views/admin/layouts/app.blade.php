@@ -8,6 +8,8 @@
         content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
     <meta name="author" content="Themesberg">
     <meta name="generator" content="Hugo 0.122.0">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Dashboard | MONODEEP</title>
 

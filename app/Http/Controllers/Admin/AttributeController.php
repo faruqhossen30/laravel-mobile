@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attribute;
+use App\Models\AttributeValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -83,5 +84,44 @@ class AttributeController extends Controller
     {
         Attribute::where('id', $id)->delete();
         return redirect()->route('attribute.index');
+    }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function ajaxSearch()
+    {
+        $attributes = Attribute::get();
+
+        $response = array();
+        foreach ($attributes as $attr) {
+            $response[] = array(
+                'id'    => $attr->id,
+                'text'  => $attr->name,
+            );
+        }
+        return response()->json($response);
+    }
+
+    public function ajaxAttributeValueSearch(Request $request)
+    {
+        // dd($request->all());
+        // $attributes = AttributeValue::get();
+
+        $search = $request->search;
+        if($search == ''){
+            $attributes = AttributeValue::where('attribute_id', $request->id)->get();
+        }else{
+            $attributes = AttributeValue::where('attribute_id', $request->id)->where('name', 'like', '%'.$search.'%')->limit(15)->get();
+        }
+
+
+        $response = array();
+        foreach ($attributes as $attr) {
+            $response[] = array(
+                'id'    => $attr->id,
+                'text'  => $attr->name,
+            );
+        }
+        return response()->json($response);
     }
 }
