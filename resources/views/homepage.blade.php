@@ -14,7 +14,8 @@
                         <div class="col-span-8 p-2 ">
                             <div class="bg-white ">
                                 <div class="p-4">
-                                    <input type="range" id="range" name="range" class="w-full mt-2" min="0" max="100">
+                                    <input type="range" id="range" name="range" class="w-full mt-2" min="0"
+                                        max="100">
                                 </div>
                             </div>
 
@@ -63,8 +64,11 @@
                         </div>
                     </div>
                     <div class="flex justify-center  ">
-                        <a href="#" class="bg-blue-900 border px-20 uppercase text-white py-1 rounded inline-flex items-center">Find Products
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 font-bold">
+                        <a href="#"
+                            class="bg-blue-900 border px-20 uppercase text-white py-1 rounded inline-flex items-center">Find
+                            Products
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-5 font-bold">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                             </svg>
 
@@ -81,13 +85,15 @@
                         </a>
                     </div>
                     <div class="flex justify-around border rounded p-1 group hover:shadow">
-                        <img src="{{ asset('img/client/Xiaomi-Redmi-Note-13-Pro-5G.webp') }}" class=" bg-cover transform group-hover:scale-110 transition-transform duration-300"
+                        <img src="{{ asset('img/client/Xiaomi-Redmi-Note-13-Pro-5G.webp') }}"
+                            class=" bg-cover transform group-hover:scale-110 transition-transform duration-300"
                             alt="" height="50px" width="50px" srcset="">
                         <div>
                             <h4 class=" text-base font-semibold">Xiaomi Redmi Note 13 4G</h4>
                             <div class="flex space-x-2 ">
 
-                                <p class="font-semibold text-lg">৳ 22,999</p><sub class="inline-block text-xs text-red-500">(official)</sub>
+                                <p class="font-semibold text-lg">৳ 22,999</p><sub
+                                    class="inline-block text-xs text-red-500">(official)</sub>
                             </div>
                         </div>
                         <div class="bg-[#009751] text-white p-1 text-xs font-medium">
@@ -97,13 +103,15 @@
                         </div>
                     </div>
                     <div class="flex justify-around border rounded p-1 group hover:shadow">
-                        <img src="{{ asset('img/client/Xiaomi-Redmi-Note-13-Pro-5G.webp') }}" class=" bg-cover transform group-hover:scale-110 transition-transform duration-300"
+                        <img src="{{ asset('img/client/Xiaomi-Redmi-Note-13-Pro-5G.webp') }}"
+                            class=" bg-cover transform group-hover:scale-110 transition-transform duration-300"
                             alt="" height="50px" width="50px" srcset="">
                         <div>
                             <h4 class=" text-base font-semibold">Xiaomi Redmi Note 13 4G</h4>
                             <div class="flex space-x-2 ">
 
-                                <p class="font-semibold text-lg">৳ 22,999</p><sub class="inline-block text-xs text-red-500">(official)</sub>
+                                <p class="font-semibold text-lg">৳ 22,999</p><sub
+                                    class="inline-block text-xs text-red-500">(official)</sub>
                             </div>
                         </div>
                         <div class="bg-[#009751] text-white p-1 text-xs font-medium">
@@ -113,12 +121,14 @@
                         </div>
                     </div>
                     <div class="flex justify-around border rounded p-1 group hover:shadow">
-                        <img src="{{ asset('img/client/Xiaomi-Redmi-Note-13-Pro-5G.webp') }}" class=" bg-cover transform group-hover:scale-110 transition-transform duration-300"
+                        <img src="{{ asset('img/client/Xiaomi-Redmi-Note-13-Pro-5G.webp') }}"
+                            class=" bg-cover transform group-hover:scale-110 transition-transform duration-300"
                             alt="" height="50px" width="50px" srcset="">
                         <div>
                             <h4 class=" text-base font-semibold">Xiaomi Redmi Note 13 4G</h4>
                             <div class="flex space-x-2 ">
-                                <p class="font-semibold text-lg">৳ 22,999</p><sub class="inline-block text-xs text-red-500">(official)</sub>
+                                <p class="font-semibold text-lg">৳ 22,999</p><sub
+                                    class="inline-block text-xs text-red-500">(official)</sub>
                             </div>
                         </div>
                         <div class="bg-[#009751] text-white p-1 text-xs font-medium">
@@ -141,15 +151,16 @@
     <!--------header section end------------>
 
 
- <!----------brandpage----------->
- @include('brandpage')
- <!----------brandpage----------->
+    <!----------brandpage----------->
+    @include('brandpage')
+    <!----------brandpage----------->
     <section class="bg-slate-200">
         <div class="container mx-auto bg-white">
             <div class="flex justify-between items-center border-b p-3 bg-white rounded-lg">
                 <h2 class="text-lg font-bold">LATEST MOBILE PHONES</h2>
                 <a href="" class="inline-flex items-center text-lg font-bold">View More
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="size-4 text-xl font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5"
+                        stroke="currentColor" class="size-4 text-xl font-bold">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                     </svg>
 
@@ -157,16 +168,18 @@
             </div>
 
             <div id="productslider" class="owl-carousel owl-theme slider grid grid-cols-12 gap-3">
-                @foreach ([1, 2, 3, 4, 5, 6, 7,12,1,2,1,2,14,2,4,4] as $product)
+                @foreach ([1, 2, 3, 4, 5, 6, 7, 12, 1, 2, 1, 2, 14, 2, 4, 4] as $product)
                     <div class="col-span-2 border group">
                         <a href="#" class=" bg-white inline-block rounded px-6 py-4">
                             <div class="flex items-center bg-slate-100 rounded-lg overflow-hidden">
-                                <img src="{{ asset('img/client/POCO.webp') }}" class="group-hover:scale-150  transition duration-300 ease-in-out" alt="" width="250px"
-                                    height="300px" srcset="">
+                                <img src="{{ asset('img/client/POCO.webp') }}"
+                                    class="group-hover:scale-150  transition duration-300 ease-in-out" alt=""
+                                    width="250px" height="300px" srcset="">
                             </div>
                             <p class="text-center text-lg font-medium py-1">Poco C61</p>
                             <div class="flex  space-x-1">
-                                <P class="text-center text-base font-medium"><span class="font-bold">৳</span> {{rand(5.,100)}}</P><span class="text-red-400">(offical)</span>
+                                <P class="text-center text-base font-medium"><span class="font-bold">৳</span>
+                                    {{ rand(5., 100) }}</P><span class="text-red-400">(offical)</span>
                             </div>
                             <div class="flex justify-end px-3">
                                 <sup class="line-through text-right">৳ 500</sup>
@@ -175,7 +188,8 @@
 
                         <div class="border p-1 flex justify-between px-3">
                             <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-800">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
@@ -186,8 +200,8 @@
                             <div>
 
                                 <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                        class="size-6 text-gray-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-800">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
                                     </svg>
@@ -201,10 +215,12 @@
     </section>
 
 
-<!------Post page-------->
-@include('postpage')
-<!------Post page-------->
+    <!------Post page-------->
+    @include('postpage')
+    <!------Post page-------->
+    <!------Post page-------->
 
+    <!------Post page-------->
 @endsection
 
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\ContuctController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PortfoliopageController;
+use App\Http\Controllers\PostPageController;
 use App\Http\Controllers\PricepageController;
 use App\Http\Controllers\ProductCompareController;
 use App\Http\Controllers\ProductPageController;
@@ -40,10 +41,11 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::get('/',[HomepageController::class,'Homepage'])->name('homepage');
-Route::get('/products',[ProductPageController::class,'products'])->name('productpage');
-Route::get('/single-product',[ProductPageController::class,'singleProduct'])->name('product.single');
-Route::get('/product-compare',[ProductCompareController::class,'productCompare'])->name('product.compare');
+Route::get('/', [HomepageController::class, 'Homepage'])->name('homepage');
+Route::get('/products', [ProductPageController::class, 'products'])->name('productpage');
+Route::get('/single-product', [ProductPageController::class, 'singleProduct'])->name('product.single');
+Route::get('/product-compare', [ProductCompareController::class, 'productCompare'])->name('product.compare');
+Route::get('/posts', [PostPageController::class, 'postPage'])->name('post.page');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
