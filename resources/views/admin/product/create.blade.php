@@ -3,6 +3,12 @@
     <x-breadcrumb pageone="Product" pageoneRoute="{{ route('product.index') }}" pagetwo="Create" />
 @endsection
 @section('content')
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+    @endif
+
     <div class="flex flex-col gap-6">
         <div class="p-6">
             <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
@@ -89,7 +95,6 @@
                                 Brand</label>
                             <select id="brand_ids" name="brand_id"
                                 class="select-brand py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
-                                <option>Select Brand</option>
                                 @foreach ($brands as $brand)
                                     <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                 @endforeach
@@ -130,6 +135,15 @@
     <style>
         .dropify-message p {
             font-size: 24px
+        }
+
+        .select2-container {
+            box-sizing: border-box;
+            display: inline-block;
+            margin: 0;
+            position: relative;
+            vertical-align: middle;
+            width: 100% !important;
         }
     </style>
 @endpush
@@ -173,7 +187,7 @@
                         </div>
                         <div class="col-span-8">
                             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                            <select
+                            <select multiple name="attribute_value[]"
                                 class="select-attributevalue bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                             </select>
@@ -215,8 +229,8 @@
                 });
             }
 
-            function arrtibuteValueSelect(attributeid){
-                console.log('attributeid',attributeid);
+            function arrtibuteValueSelect(attributeid) {
+                console.log('attributeid', attributeid);
                 $('.select-attributevalue').select2({
                     placeholder: 'Select',
                     // theme: 'bootstrap4',

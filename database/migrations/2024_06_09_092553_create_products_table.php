@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('short_description',1000);
             $table->float('price');
             $table->enum('status',['active','deactive','draft'])->default('draft');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('author_id');
             //seo section

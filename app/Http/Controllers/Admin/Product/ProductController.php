@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product\Product;
+use App\Models\Product\ProductAttribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -41,11 +42,11 @@ class ProductController extends Controller
             'description'    => 'required',
             'category_id'    => 'required',
             'price'          => 'required',
-            'thumbnail'      => 'required',
+            // 'thumbnail'      => 'required',
         ]);
 
         $metakeyword  = $request->meta_keywords;
-        $keyword = implode(", ", $metakeyword);
+        // $keyword = implode(", ", $metakeyword);
         $data = [
             'category_id'       => $request->category_id,
             'title'             => $request->title,
@@ -58,7 +59,7 @@ class ProductController extends Controller
             'author_id'         => Auth::user()->id,
             'meta_title'        => $request->meta_title,
             'meta_description'  => $request->meta_description,
-            'meta_keyword'      => $keyword,
+            'meta_keyword'      => 'keyword',
             'status'            => $request->status,
         ];
 
@@ -66,7 +67,18 @@ class ProductController extends Controller
             $file_name = $request->file('thumbnail')->store('product/thumbnail/');
             $data['thumbnail'] = $file_name;
         }
-        Product::create($data);
+
+        $product = Product::create($data);
+
+        if($product && $request->attribute_value){
+            foreach($request->attribute_value as $key => $attribute){
+                ProductAttribute::create([
+                    'product_id'=> $product->id,
+                    'attribut_value_id'=> $attribute
+                ]);
+            }
+        }
+
         return redirect()->route('product.index');
     }
 

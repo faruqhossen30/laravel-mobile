@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Setting\WebsiteSetting;
+use Attribute;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,7 +25,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             PermissionSeeder::class,
             SiteSetting::class,
-
+            AttributeSeeder::class,
+            AttributeValueSeeder::class,
         ]);
         // \App\Models\User::factory(50)->create();
     }
