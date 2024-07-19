@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             SiteSetting::class,
             AttributeSeeder::class,
             AttributeValueSeeder::class,
+            BrandSeeder::class,
         ]);
         // \App\Models\User::factory(50)->create();
     }

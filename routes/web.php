@@ -43,7 +43,7 @@ Route::get('/test', function () {
 
 Route::get('/', [HomepageController::class, 'Homepage'])->name('homepage');
 Route::get('/products', [ProductPageController::class, 'products'])->name('productpage');
-Route::get('/single-product', [ProductPageController::class, 'singleProduct'])->name('product.single');
+Route::get('/product/{slug}', [ProductPageController::class, 'singleProduct'])->name('product.single');
 Route::get('/product-compare', [ProductCompareController::class, 'productCompare'])->name('product.compare');
 Route::get('/posts', [PostPageController::class, 'postPage'])->name('post.page');
 

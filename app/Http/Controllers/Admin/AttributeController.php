@@ -8,6 +8,7 @@ use App\Models\AttributeValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+
 class AttributeController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class AttributeController extends Controller
     public function index()
     {
         $attributes = Attribute::paginate();
-        return view('admin.attribute.index',compact('attributes'));
+        return view('admin.attribute.index', compact('attributes'));
     }
 
     /**
@@ -36,11 +37,21 @@ class AttributeController extends Controller
             'name' => 'required'
         ]);
 
-        Attribute::create([
+        $data = [
             'name' => $request->name,
-            'slug' =>Str::slug($request->name),
+            'slug' => Str::slug($request->name),
+            'sort' => $request->sort,
             'author_id' => Auth::user()->id,
-        ]);
+        ];
+
+
+        if ($request->file('icon')) {
+            $file_name = $request->file('icon')->store('attribute/icon/');
+            $data['icon'] = $file_name;
+        }
+
+
+        Attribute::create($data);
         return redirect()->route('attribute.index');
     }
 
@@ -58,7 +69,7 @@ class AttributeController extends Controller
     public function edit(string $id)
     {
         $attribute = Attribute::firstWhere('id', $id);
-        return view('admin.attribute.edit',compact('attribute'));
+        return view('admin.attribute.edit', compact('attribute'));
     }
 
     /**
@@ -70,10 +81,21 @@ class AttributeController extends Controller
             'name' => 'required'
         ]);
 
-        Attribute::firstWhere('id', $id)->update([
+        $data = [
             'name' => $request->name,
-            'slug' =>Str::slug($request->name),
-        ]);
+            'slug' => Str::slug($request->name),
+            'sort' => $request->sort,
+            'author_id' => Auth::user()->id,
+        ];
+
+
+        if ($request->file('icon')) {
+            $file_name = $request->file('icon')->store('attribute/icon/');
+            $data['icon'] = $file_name;
+        }
+
+
+        Attribute::firstWhere('id', $id)->update($data);
         return redirect()->route('attribute.index');
     }
 
@@ -108,10 +130,10 @@ class AttributeController extends Controller
         // $attributes = AttributeValue::get();
 
         $search = $request->search;
-        if($search == ''){
+        if ($search == '') {
             $attributes = AttributeValue::where('attribute_id', $request->id)->get();
-        }else{
-            $attributes = AttributeValue::where('attribute_id', $request->id)->where('name', 'like', '%'.$search.'%')->limit(15)->get();
+        } else {
+            $attributes = AttributeValue::where('attribute_id', $request->id)->where('name', 'like', '%' . $search . '%')->limit(15)->get();
         }
 
 

@@ -168,7 +168,7 @@
             </div>
 
             <div id="productslider" class="owl-carousel owl-theme slider grid grid-cols-12 gap-3">
-                @foreach ([1, 2, 3, 4, 5, 6, 7, 12, 1, 2, 1, 2, 14, 2, 4, 4] as $product)
+                @foreach ($products as $product)
                     <div class="col-span-2 border group">
                         <a href="#" class=" bg-white inline-block rounded px-6 py-4">
                             <div class="flex items-center bg-slate-100 rounded-lg overflow-hidden">
@@ -194,7 +194,7 @@
                                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
                             </button>
-                            <a href="{{ route('product.single') }}">
+                            <a href="{{ route('product.single', 'sd') }}">
                                 <p class="text-center text-gray-800">View Details</p>
                             </a>
                             <div>

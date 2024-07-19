@@ -1,6 +1,6 @@
 @php
     use App\Models\Brand;
-    $brands = Brand::latest()->get();
+    $brands = Brand::get();
 @endphp
 
 <section class="bg-slate-200 py-4">
@@ -17,7 +17,7 @@
                         <div class="flex items-center bg-slate-100 rounded-md overflow-hidden h-20">
                             <img src="{{ asset('storage/'.$brand->thumbnail) }}" class="" alt="">
                         </div>
-                        <p class="text-center text-xs font-medium py-2 ">{{$brand->name}}</p>
+                        <p class="text-center text-xs font-medium py-2 capitalize">{{$brand->name}}</p>
 
                     </a>
                 </div>

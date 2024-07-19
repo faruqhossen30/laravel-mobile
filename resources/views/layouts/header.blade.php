@@ -71,8 +71,6 @@
     </div>
 </header>
 
-
-
 <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 ">
     <div class="container border-b flex flex-wrap items-center justify-between mx-auto p-4">
 

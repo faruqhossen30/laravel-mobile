@@ -26,13 +26,28 @@ class ProductPageController extends Controller
             return $query->orderBy('id', $orderby);
         })->paginate($per_page ?? 9);
 
-        $brands = Brand::latest()->get();
+        $brands = Brand::orderBy('name', 'asc')->get();
 
 
         return view('products',compact('products','brands'));
     }
-    public function singleProduct()
+    public function singleProduct($slug)
     {
-        return view('productpage');
+        $product = Product::with(['brand','items.attribute'])->firstWhere('slug', $slug);
+        $list = $product->items;
+        $attributes = collect($product->items)->unique('attribute_id')->values()->all();
+
+        $data = collect([]);
+        foreach($attributes as $key=> $item){
+                $attribute = [];
+                $attribute['id'] = $item->attribute->id;
+                $attribute['sort'] = $item->attribute->sort;
+                $attribute['name'] = $item->attribute->name;
+                $attribute['slug'] = $item->attribute->slug;
+                $attribute['items'] = $list->where('attribute_id', $item->attribute->id)->select('id','name','slug','description')->sortBy(['id', 'asc'])->values()->all();
+                $data[] = $attribute;
+        }
+        $data = $data->sortBy('sort')->values()->all();
+        return view('productpage', compact('product','data'));
     }
 }

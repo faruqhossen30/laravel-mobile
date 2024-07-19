@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->integer('sort')->nullable();
+            $table->string('icon')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->timestamps();
         });

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
 class PostController extends Controller
 {
     /**
@@ -19,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(10);
-        return view('admin.post.index',compact('posts'));
+        return view('admin.post.index', compact('posts'));
     }
 
     /**
@@ -28,7 +29,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::get();
-        return view('admin.post.create',compact('categories'));
+        return view('admin.post.create', compact('categories'));
     }
 
     /**
@@ -57,23 +58,24 @@ class PostController extends Controller
             'status'            => $request->status
         ];
 
-        if($request->file('thumbnail')){
+        if ($request->file('thumbnail')) {
             $file_name = $request->file('thumbnail')->store('thumbnail/post/');
             $data['thumbnail'] = $file_name;
+        }
 
         $post = Post::create($data);
 
-        if(!empty($request->category_ids)){
-             foreach($request->category_ids as $id){
+        if (!empty($request->category_ids)) {
+            foreach ($request->category_ids as $id) {
                 PostCategory::create([
-                    'post_id'=>$post->id,
-                    'category_id'=>$id
+                    'post_id' => $post->id,
+                    'category_id' => $id
                 ]);
-             }
+            }
         }
         Session::flash('create');
-        return redirect()->route('post.index')->with('create','Post successfully created');
-    }
+        return redirect()->route('post.index')->with('create', 'Post successfully created');
+
     }
 
     /**
@@ -96,7 +98,7 @@ class PostController extends Controller
 
 
         // return  $cat_ids;
-        return view('admin.post.edit', compact('categories','post','cat_ids',));
+        return view('admin.post.edit', compact('categories', 'post', 'cat_ids',));
     }
 
     /**
@@ -126,27 +128,27 @@ class PostController extends Controller
             'status'            => $request->status
         ];
 
-        if($request->file('thumbnail')){
+        if ($request->file('thumbnail')) {
             $file_name = $request->file('thumbnail')->store('thumbnail/blog/');
             $data['thumbnail'] = $file_name;
         }
 
-        $post = Post::firstWhere('id',$id)->update($data);
+        $post = Post::firstWhere('id', $id)->update($data);
 
-        if(!empty($request->category_ids)){
+        if (!empty($request->category_ids)) {
             PostCategory::where('post_id', $id)->delete();
-             foreach($request->category_ids as $cat){
+            foreach ($request->category_ids as $cat) {
                 PostCategory::create([
-                    'post_id'=>$id,
-                    'category_id'=>$cat
+                    'post_id' => $id,
+                    'category_id' => $cat
                 ]);
-             }
+            }
         }
 
 
 
         Session::flash('warning');
-        return redirect()->route('post.index')->with('warning',' Post Successfully Updated');;
+        return redirect()->route('post.index')->with('warning', ' Post Successfully Updated');;
     }
 
     /**
@@ -157,6 +159,6 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         Storage::delete($post->thumbnail);
         $post->delete();
-        return redirect()->route('post.index')->with('success','data successfully Deleted');
+        return redirect()->route('post.index')->with('success', 'data successfully Deleted');
     }
 }

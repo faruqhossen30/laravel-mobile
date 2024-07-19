@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::paginate();
+        return view('admin.product.index', compact('products'));
     }
 
     /**
@@ -28,6 +29,7 @@ class ProductController extends Controller
     {
         $brands        = Brand::all();
         $categories    = Category::get();
+
         return view('admin.product.create', compact('categories', 'brands'));
     }
 
@@ -74,7 +76,7 @@ class ProductController extends Controller
             foreach($request->attribute_value as $key => $attribute){
                 ProductAttribute::create([
                     'product_id'=> $product->id,
-                    'attribut_value_id'=> $attribute
+                    'attribute_value_id'=> $attribute
                 ]);
             }
         }
