@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <section class="bg-gray-100">
-        <div class="container mx-auto py-3  px-3 ">
+        <div class="max-w-7xl mx-auto py-3  px-3 ">
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
@@ -36,7 +36,7 @@
     </section>
     <!-------------section------------>
     <section class="bg-gray-100">
-        <div class="container mx-auto grid grid-cols-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-12">
             <div class="col-span-9 py-3">
                 <h1 class="text-3xl font-bold ">{{ $product->title }}</h1>
 
@@ -248,7 +248,7 @@
 
 
 
-                        <div class=" border rounded mt-4">
+                        {{-- <div class=" border rounded mt-4">
                             <div class="flex  justify-between items-center pt-3 px-3   text-xl text-[#2c2f34] font-semibold">
                                 <h3>Network</h3>
                                 <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -426,13 +426,13 @@
 
                                 </tbody>
                             </table>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </div>
             </div>
             <div class="col-span-3 py-10">
-                <img src="{{ asset('img/client/9994403579511717515.png') }}" alt="" srcset="">
+                <img src="{{ asset('img/client/9994403579511717515.png') }}" alt="">
             </div>
 
         </div>

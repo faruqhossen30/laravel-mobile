@@ -1,9 +1,9 @@
 <header class="border-b bg-gray-100">
-    <div class="container mx-auto lg:px-0 px-3">
+    <div class="container">
         <div class="grid grid-cols-12 py-3">
-            <div class="col-span-3">
+            <div class="col-span-3 flex items-center">
                 <a href="{{ route('homepage') }}">
-                    <img src="{{ asset('img/client/logo.png') }}" alt="" width="200px" srcset="">
+                    <img src="{{ asset('img/client/logo.png') }}" alt="" width="200px">
                 </a>
             </div>
             <div class="col-span-6">
@@ -52,7 +52,7 @@
                                 d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                     </a>
-                    <div class="text-center lg:hidden">
+                    <div class="text-center md:hidden">
                         <button class="border p-1 rounded-md" type="button" data-drawer-target="drawer-navigation"
                             data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -71,9 +71,8 @@
     </div>
 </header>
 
-<nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 ">
+<nav class="container hidden md:block bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 ">
     <div class="container border-b flex flex-wrap items-center justify-between mx-auto p-4">
-
         <button data-collapse-toggle="navbar-multi-level" type="button"
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-multi-level" aria-expanded="false">
@@ -84,7 +83,7 @@
                     d="M1 1h15M1 7h15M1 13h15" />
             </svg>
         </button>
-        <div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">
+        <div class="w-full md:block md:w-auto" id="navbar-multi-level">
             <ul
                 class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
