@@ -18,6 +18,7 @@ use App\Http\Controllers\ProductPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewpageController;
 use App\Http\Controllers\ReviewSubmitController;
+use App\Http\Controllers\SearchPageController;
 use App\Http\Controllers\ServicepageController;
 use App\Http\Controllers\TearmsController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,9 @@ Route::get('/products', [ProductPageController::class, 'products'])->name('produ
 Route::get('/product/{slug}', [ProductPageController::class, 'singleProduct'])->name('product.single');
 Route::get('/product-compare', [ProductCompareController::class, 'productCompare'])->name('product.compare');
 Route::get('/posts', [PostPageController::class, 'postPage'])->name('post.page');
+
+
+Route::get('search/',[SearchPageController::class,'index'])->name('search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

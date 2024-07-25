@@ -7,67 +7,71 @@
             <div class="grid grid-cols-12 gap-3 ">
                 <div class="col-span-12 lg:col-span-8 bg-white py-4 rounded-lg">
                     <h2 class=" text-center text-2xl font-bold text-blue-500 ">LETS FIND A MOBILE</h2>
-                    <div class="grid grid-cols-12  ">
-                        <div class="col-span-8 p-2 ">
-                            <div class="bg-white ">
-                                <div class="p-4">
-                                    <input type="range" id="range" name="range" class="w-full mt-2" min="0" max="100">
+                    <form action="{{route('search')}}" method="get">
+                        @csrf
+                        <div class="grid grid-cols-12">
+                            <div class="col-span-8 p-2 ">
+                                <div class="bg-white ">
+                                    <div class="p-4">
+                                        <input type="range" id="range" name="range" class="w-full mt-2" min="0" max="100">
+                                    </div>
                                 </div>
+
+                                <div class="flex bg-white justify-center p-4 space-x-3 ">
+
+                                    <div class=" flex px-2  items-center space-x-2">
+                                        <p>Tk</p> <input type="number" id="small-input" placeholder="0" name="minprice"
+                                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    </div>
+
+                                    <div class=" px-2 flex  items-center space-x-2">
+                                        <p>Tk </p><input type="number" id="small-input" placeholder="193215" name="maxprice"
+                                            class="block w-full p-2 px-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    </div>
+
+                                </div>
+
                             </div>
-
-                            <div class="flex bg-white justify-center p-4 space-x-3 ">
-
-                                <div class=" flex px-2  items-center space-x-2">
-                                    <p>Tk</p> <input type="text" id="small-input" placeholder="0"
-                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <div class="col-span-4 p-4">
+                                <div class="bg-white">
+                                    <select id="small"
+                                        class="block w-full mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option selected>Mobile</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="FR">France</option>
+                                        <option value="DE">Germany</option>
+                                    </select>
+                                    <select id="small"
+                                        class="block w-full mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option selected>Category</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="FR">France</option>
+                                        <option value="DE">Germany</option>
+                                    </select>
+                                    <select id="small"
+                                        class="block w-full mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option selected>Brand</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="FR">France</option>
+                                        <option value="DE">Germany</option>
+                                    </select>
                                 </div>
-
-                                <div class=" px-2 flex  items-center space-x-2">
-                                    <p>Tk </p><input type="text" id="small-input" placeholder="193215"
-                                        class="block w-full p-2 px-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                </div>
-
                             </div>
 
                         </div>
-                        <div class="col-span-4 p-4">
-                            <div class="bg-white">
-                                <select id="small"
-                                    class="block w-full mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected>Mobile</option>
-                                    <option value="US">United States</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="FR">France</option>
-                                    <option value="DE">Germany</option>
-                                </select>
-                                <select id="small"
-                                    class="block w-full mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected>Category</option>
-                                    <option value="US">United States</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="FR">France</option>
-                                    <option value="DE">Germany</option>
-                                </select>
-                                <select id="small"
-                                    class="block w-full mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected>Brand</option>
-                                    <option value="US">United States</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="FR">France</option>
-                                    <option value="DE">Germany</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-center  ">
-                        <a href="#" class="bg-blue-900 border px-20 uppercase text-white py-1 rounded inline-flex items-center">Find
-                            Products
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 font-bold">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                            </svg>
+                        <div class="flex justify-center  ">
+                            <button type="submit" class="bg-blue-900 border px-20 uppercase text-white py-1 rounded inline-flex items-center">Find
+                                Products
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 font-bold">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
 
-                        </a>
-                    </div>
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-span-12 lg:col-span-4 bg-white px-3 py-3 space-y-2 rounded-lg">
                     <div class=" flex   justify-between p-4">
@@ -78,23 +82,27 @@
                             View More
                         </a>
                     </div>
-                    <div class="flex justify-between border rounded p-1 group hover:shadow">
-                        <div class="flex items-center">
-                            <img src="{{ asset('img/client/Xiaomi-Redmi-Note-13-Pro-5G.webp') }}"
-                                class="max-h-14 bg-cover transform group-hover:scale-110 transition-transform duration-300" alt="" srcset="">
-                            <div>
-                                <h4 class=" text-base font-semibold">Xiaomi Redmi Note 13 4G</h4>
-                                <div class="flex space-x-2 ">
-                                    <p class="font-semibold text-lg">৳ 22,999</p><sub class="inline-block text-xs text-red-500">(official)</sub>
+
+
+                    @foreach ($latestproduct as $latest)
+                        <div class="flex justify-between border rounded p-1 group hover:shadow">
+                            <div class="flex items-center space-x-2">
+                                <img src="{{ asset('storage/' . $latest->thumbnail) }}" class="max-h-14 bg-cover transform group-hover:scale-110 transition-transform duration-300"
+                                    alt="" srcset="">
+                                <div>
+                                    <h4 class=" text-base font-semibold">{{ $latest->title }}</h4>
+                                    <div class="flex space-x-2 ">
+                                        <p class="font-semibold text-lg">৳ {{ $latest->price }}</p>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="bg-[#009751] text-white p-1 text-xs font-medium">
+                                <P> 71%</P>
+                                <P>SPREC</P>
+                                <p>SCORE</p>
+                            </div>
                         </div>
-                        <div class="bg-[#009751] text-white p-1 text-xs font-medium">
-                            <P> 71%</P>
-                            <P>SPREC</P>
-                            <p>SCORE</p>
-                        </div>
-                    </div>
+                    @endforeach
 
                     <div class="p-4 hover:shadow-lg ">
                         <!-- Your content here -->

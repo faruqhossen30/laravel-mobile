@@ -9,6 +9,9 @@ class HomepageController extends Controller
 {
     public function Homepage() {
         $products = Product::paginate();
-        return view('homepage', compact('products'));
+        $latestproduct = Product::latest()->take(3)->get();
+
+        // return  $latestproduct;
+        return view('homepage', compact('products','latestproduct'));
     }
 }

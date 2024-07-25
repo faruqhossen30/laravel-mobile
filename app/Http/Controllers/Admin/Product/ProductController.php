@@ -66,7 +66,7 @@ class ProductController extends Controller
         ];
 
         if ($request->file('thumbnail')) {
-            $file_name = $request->file('thumbnail')->store('product/thumbnail/');
+            $file_name = $request->file('thumbnail')->store('product/thumbnail');
             $data['thumbnail'] = $file_name;
         }
 

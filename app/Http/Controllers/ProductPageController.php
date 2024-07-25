@@ -22,9 +22,19 @@ class ProductPageController extends Controller
             $orderby = $_GET['orderby'];
         }
 
+
+        $keyword = null;
+        if (isset($_GET['keyword'])) {
+            $keyword = trim($_GET['keyword']);
+        }
         $products = Product::when($orderby, function ($query, $orderby) {
             return $query->orderBy('id', $orderby);
-        })->paginate($per_page ?? 9);
+        })->when($keyword, function($query, $keyword){
+            return $query->where('title', 'like', '%' . $keyword . '%');
+        })
+
+
+        ->paginate($per_page ?? 9);
 
         $brands = Brand::orderBy('name', 'asc')->get();
 
