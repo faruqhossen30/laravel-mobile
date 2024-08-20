@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Blog\BlogController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\EditorImageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\Setting\AboutmeSettingController;
@@ -20,6 +21,8 @@ use App\Http\Controllers\Admin\Setting\WebsiteSettingController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\TestthreeController;
+use App\Http\Controllers\TesttwoController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('role', RoleController::class);
@@ -29,6 +32,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // Route::resource('role', RoleController::class);
     // Start Work
+
+    Route::resource('mobile',TesttwoController::class);
+
+    Route::get('photo',[TestthreeController::class,'index'])->name('photo');
+    Route::get('photo/create',[TestthreeController::class,'create'])->name('photo.create');
+    Route::post('photo',[TestthreeController::class,'store'])->name('photo.store');
+    Route::get('photos/{photo}',[TestthreeController::class,'show'])->name('photo.show');
+    Route::get('photos/{photo}/edit',[TestthreeController::class,'edit'])->name('photo.edit');
+    Route::post('photos/{photo}',[TestthreeController::class,'destroy'])->name('photo.destroy');
+
+
+    Route::post('editor/image/store', [EditorImageController::class, 'store'])->name('editorimagestore');
 
     Route::resource('category',           CategoryController::class);
     Route::resource('brand',              BrandController::class);

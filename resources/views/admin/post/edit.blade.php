@@ -30,12 +30,16 @@
                                         <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <textarea name="description" class="ckeditor" id="editor" cols="30" rows="10">{{ $post->description }}</textarea>
+                                {{-- <textarea name="description" class="ckeditor" id="editor" cols="30" rows="10">{{ $post->description }}</textarea>
+                                @error('description')
+                                    <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+                                @enderror --}}
+
+
+                                <textarea name="description" id="myeditorinstance" cols="30" rows="10">{{ $post->description }}</textarea>
                                 @error('description')
                                     <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
                                 @enderror
-
-
 
                             </div>
                             <div class="col-span-12 lg:col-span-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
@@ -68,9 +72,9 @@
                                         multiple="multiple">
 
 
-                                        @foreach (json_decode($post->meta_keyword) as $keyword)
+                                        {{-- @foreach (json_decode($post->meta_keyword) as $keyword)
                                             <option value="{{$keyword}}" selected>{{$keyword}}</option>
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
                                 </div>
 
@@ -94,6 +98,9 @@
         .dropify-message p {
             font-size: 24px
         }
+        .tox .tox-promotion-link {
+            visibility: hidden;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
@@ -102,6 +109,55 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/dropify.min.js') }}"></script>
+    <script src="{{asset('tinymce/js/tinymce/tinymce.min.js')}}"></script>
+
+    <script>
+        tinymce.init({
+            license_key: 'gpl',
+            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists image',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | image',
+            image_title: true,
+            file_picker_types: 'image',
+            image_uploadtab: true,
+            // file_picker_callback: (cb, value, meta) => {
+            //     const input = document.createElement('input');
+            //     input.setAttribute('type', 'file');
+            //     input.setAttribute('accept', 'image/*');
+
+            //     input.addEventListener('change', (e) => {
+            //         const file = e.target.files[0];
+
+            //         const reader = new FileReader();
+            //         reader.addEventListener('load', () => {
+            //             /*
+            //               Note: Now we need to register the blob in TinyMCEs image blob
+            //               registry. In the next release this part hopefully won't be
+            //               necessary, as we are looking to handle it internally.
+            //             */
+            //             const id = 'blobid' + (new Date()).getTime();
+            //             const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+            //             const base64 = reader.result.split(',')[1];
+            //             const blobInfo = blobCache.create(id, file, base64);
+            //             blobCache.add(blobInfo);
+
+            //             /* call the callback and populate the Title field with the file name */
+            //             cb(blobInfo.blobUri(), {
+            //                 title: file.name
+            //             });
+            //         });
+            //         reader.readAsDataURL(file);
+            //     });
+
+            //     console.log('this is file');
+
+            //     input.click();
+            // },
+            paste_data_images:false,
+            images_upload_url: '{{ route('editorimagestore') . '?_token=' . csrf_token() }}',
+            automatic_uploads: true,
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

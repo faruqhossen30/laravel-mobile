@@ -21,6 +21,7 @@ use App\Http\Controllers\ReviewSubmitController;
 use App\Http\Controllers\SearchPageController;
 use App\Http\Controllers\ServicepageController;
 use App\Http\Controllers\TearmsController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*

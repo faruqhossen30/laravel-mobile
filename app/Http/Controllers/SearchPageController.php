@@ -43,15 +43,6 @@ class SearchPageController extends Controller
 
         ->paginate($per_page ?? 9);
 
-
-
-//  return  $products;
-        // $searchproducts = Product::when($keyword, function($query, $keyword){
-        //     return $query->where('title', 'like', '%' . $keyword . '%');
-        // })->latest()
-        // ->paginate(5);
-
-
         // return  $products;
         $brands = Brand::orderBy('name', 'asc')->get();
         return view('productlistpage', compact('brands', 'products'));

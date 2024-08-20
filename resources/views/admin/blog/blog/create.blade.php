@@ -31,7 +31,13 @@
                                 </div>
                                 <x-form.select-status />
 
-                                <textarea name="description" class="ckeditor" id="editor" cols="30" rows="10"></textarea>
+                                {{-- <textarea name="description" class="ckeditor" id="editor" cols="30" rows="10"></textarea>
+                                @error('description')
+                                    <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+                                @enderror --}}
+
+
+                                <textarea name="description" id="myeditorinstance" cols="30" rows="10"></textarea>
                                 @error('description')
                                     <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
                                 @enderror
@@ -96,13 +102,22 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/dropify.min.js') }}"></script>
-    {{-- <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.log(error);
-            });
-    </script> --}}
+    <script src="{{asset('tinymce/js/tinymce/tinymce.min.js')}}"></script>
+
+    <script>
+        tinymce.init({
+            license_key: 'gpl',
+            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists image',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | image',
+            image_title: true,
+            file_picker_types: 'image',
+            image_uploadtab: true,
+            paste_data_images:false,
+            images_upload_url: '{{ route('editorimagestore') . '?_token=' . csrf_token() }}',
+            automatic_uploads: true,
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('.dropify').dropify({

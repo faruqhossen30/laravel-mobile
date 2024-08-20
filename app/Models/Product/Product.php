@@ -4,6 +4,7 @@ namespace App\Models\Product;
 
 use App\Models\AttributeValue;
 use App\Models\Brand;
+use App\Models\Category;
 use Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +35,10 @@ class Product extends Model
     public function brand()
     {
         return $this->hasOne(Brand::class, 'id', 'brand_id');
+    }
+    public function categories()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     public function getTest()

@@ -8,31 +8,21 @@
                 <div class="col-span-12 lg:col-span-8 bg-white py-4 rounded-lg">
                     <h2 class=" text-center text-2xl font-bold text-blue-500 ">LETS FIND A MOBILE</h2>
                     <form action="{{route('search')}}" method="get">
-                        @csrf
                         <div class="grid grid-cols-12">
                             <div class="col-span-8 p-2 ">
                                 <div class="bg-white ">
-                                    <div class="p-4">
-                                        <input type="range" id="range" name="range" class="w-full mt-2" min="0" max="100">
+                                    <div style="margin: 20px;">
+                                        <input type="range" min="0" max="300000" class="-mr-8" value="" id="minRange" oninput="updateMinValue(this.value)" style="width: 300px;">
+                                        <input type="range" min="0" max="300000"  value="" id="maxRange" oninput="updateMaxValue(this.value)" style="width: 300px;">
+
+                                        <div style="margin-top: 10px;">
+                                            Tk. <input type="text" id="minValue"   name="minprice" value="" class=" border-2  border-gray-200 rounded" style=" font-size: 16px;">
+                                            - Tk. <input type="text" id="maxValue" name="maxprice" value=""class=" border-2  border-gray-200 rounded"  style=" font-size: 16px;">
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="flex bg-white justify-center p-4 space-x-3 ">
-
-                                    <div class=" flex px-2  items-center space-x-2">
-                                        <p>Tk</p> <input type="number" id="small-input" placeholder="0" name="minprice"
-                                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    </div>
-
-                                    <div class=" px-2 flex  items-center space-x-2">
-                                        <p>Tk </p><input type="number" id="small-input" placeholder="193215" name="maxprice"
-                                            class="block w-full p-2 px-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    </div>
-
-                                </div>
-
                             </div>
-                            <div class="col-span-4 p-4">
+                            {{-- <div class="col-span-4 p-4">
                                 <div class="bg-white">
                                     <select id="small"
                                         class="block w-full mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -59,7 +49,7 @@
                                         <option value="DE">Germany</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                         <div class="flex justify-center  ">
@@ -122,7 +112,7 @@
         <div class="container mx-auto bg-white">
             <div class="flex justify-between items-center border-b p-3 bg-white rounded-lg">
                 <h2 class="text-lg font-bold">LATEST MOBILE PHONES</h2>
-                <a href="" class="inline-flex items-center text-lg font-bold">View More
+                <a href="{{route('productpage')}}" class="inline-flex items-center text-lg font-bold">View More
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="size-4 text-xl font-bold">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                     </svg>
@@ -131,17 +121,17 @@
             </div>
 
             <div id="productslider" class="owl-carousel owl-theme slider grid grid-cols-12 gap-3">
-                @foreach ($products as $product)
+                @foreach ($rcentproduct as $product)
                     <div class="col-span-2 border group">
                         <a href="#" class=" bg-white inline-block rounded px-6 py-4">
                             <div class="flex items-center bg-slate-100 rounded-lg overflow-hidden">
-                                <img src="{{ asset('img/client/POCO.webp') }}" class="group-hover:scale-150  transition duration-300 ease-in-out" alt="" width="250px"
+                                <img src="{{ asset('storage/'.$product->thumbnail) }}" class="h-44 group-hover:scale-150  transition duration-300 ease-in-out" alt="" width="250px"
                                     height="300px" srcset="">
                             </div>
-                            <p class="text-center text-lg font-medium py-1">Poco C61</p>
+                            <p class="text-center text-lg font-medium py-1">{{$product->title}}</p>
                             <div class="flex  space-x-1">
                                 <P class="text-center text-base font-medium"><span class="font-bold">৳</span>
-                                    {{ rand(5., 100) }}</P><span class="text-red-400">(offical)</span>
+                                    {{ $product->price }}</P><span class="text-red-400">(offical)</span>
                             </div>
                             <div class="flex justify-end px-3">
                                 <sup class="line-through text-right">৳ 500</sup>
@@ -155,7 +145,7 @@
                                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
                             </button>
-                            <a href="{{ route('product.single', 'sd') }}">
+                            <a href="{{ route('product.single', $product->slug) }}">
                                 <p class="text-center text-gray-800">View Details</p>
                             </a>
                             <div>
@@ -189,11 +179,55 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+    <style>
+        input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+input[type=range]:hover {
+    opacity: 1;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb {
+    width: 25px;
+    height: 20px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+    </style>
 @endpush
 
 @push('scripts')
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+
+    <script>
+        function updateMinValue(value) {
+            document.getElementById('minValue').value = value;
+        }
+
+        function updateMaxValue(value) {
+            document.getElementById('maxValue').value = value;
+        }
+    </script>
     {{-- <style type="text/css">
         .slider {
             position: relative;

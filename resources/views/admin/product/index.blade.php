@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('breadcrumb')
     <div class="flex justify-between items-center">
-        <x-breadcrumb pageone="Category" />
+        <x-breadcrumb pageone="Product" />
         <x-button.button-plus route="{{ route('product.create') }}" title="Create Product" />
     </div>
 @endsection
@@ -51,12 +51,12 @@
 
                                         <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
 
-                                            <x-table.crudactionbutton route="category" :id="$product->id" />
+                                            <x-table.crudactionbutton route="product" :id="$product->id" />
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">No Category found</td>
+                                        <td colspan="4" class="text-center">No Product found</td>
                                     </tr>
                                 @endforelse
 

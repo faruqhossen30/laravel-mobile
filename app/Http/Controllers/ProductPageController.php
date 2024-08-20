@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attribute;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product\Product;
+
 use Illuminate\Http\Request;
 
 class ProductPageController extends Controller
@@ -16,30 +19,66 @@ class ProductPageController extends Controller
             $per_page = $_GET['per_page'];
         }
 
+        $view = null;
+        if (isset($_GET['view']) && $_GET['view']) {
+            $view = $_GET['view'];
+        }
 
         $orderby = null;
         if (isset($_GET['orderby']) && $_GET['orderby']) {
             $orderby = $_GET['orderby'];
         }
 
+        $brandids = null;
+        if (isset($_GET['brandids']) && $_GET['brandids']) {
+            $brandids = $_GET['brandids'];
+        }
+        $catids = null;
+        if (isset($_GET['catids']) && $_GET['catids']) {
+            $catids = $_GET['catids'];
+        }
+        $valueids = null;
+        if (isset($_GET['valueids']) && $_GET['valueids']) {
+            $valueids = $_GET['valueids'];
+        }
+
+        // return $valuequery;
 
         $keyword = null;
         if (isset($_GET['keyword'])) {
             $keyword = trim($_GET['keyword']);
         }
-        $products = Product::when($orderby, function ($query, $orderby) {
+        $products = Product::with('categories','brand')->when($orderby, function ($query, $orderby) {
             return $query->orderBy('id', $orderby);
+
         })->when($keyword, function($query, $keyword){
             return $query->where('title', 'like', '%' . $keyword . '%');
-        })
 
+        })  ->when($brandids, function ($query, $brandids) {
+            $query->whereHas('brand', function ($query) use ($brandids) {
+                $query->whereIn('brand_id', $brandids);
+            });
+        }) ->when($catids, function ($query, $catids) {
+            $query->whereHas('categories', function ($query) use ($catids) {
+                $query->whereIn('category_id', $catids);
+            });
+        })->when($valueids, function ($query, $valueids) {
+            $query->whereHas('items', function ($query) use ($valueids) {
+                $query->whereIn('attribute_value_id', $valueids);
+            });
+        })
 
         ->paginate($per_page ?? 9);
 
+        // return  $products;
+
         $brands = Brand::orderBy('name', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->get();
+        $attributes = Attribute::with('values')->orderBy('name', 'asc')->get();
 
+        // return $attributes;
 
-        return view('products',compact('products','brands'));
+        return view($view =='list' ? 'productslist' : 'products',compact('products','brands','categories','attributes'));
     }
     public function singleProduct($slug)
     {
