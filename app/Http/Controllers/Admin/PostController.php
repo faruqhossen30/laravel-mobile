@@ -46,6 +46,10 @@ class PostController extends Controller
                 'status'              => 'required',
             ]
         );
+
+
+
+
         $data = [
             'title'             => $request->title,
             'slug'              => Str::slug($request->title, '-'),
@@ -54,9 +58,12 @@ class PostController extends Controller
             'user_id'           => Auth::user()->id,
             'meta_title'        => $request->meta_title,
             'meta_description'  => $request->meta_description,
-            'meta_keyword'     => json_encode($request->meta_keywords),
+            'meta_keyword'      => json_encode($request->meta_keywords),
             'status'            => $request->status
         ];
+
+
+
 
         if ($request->file('thumbnail')) {
             $file_name = $request->file('thumbnail')->store('thumbnail/post/');
@@ -75,7 +82,6 @@ class PostController extends Controller
         }
         Session::flash('create');
         return redirect()->route('post.index')->with('create', 'Post successfully created');
-
     }
 
     /**

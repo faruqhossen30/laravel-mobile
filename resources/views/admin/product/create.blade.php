@@ -13,18 +13,19 @@
         <div class="p-6">
             <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-12 lg:col-span-8 space-y-2 bg-white  dark:bg-gray-800 p-4 rounded-lg">
                         <x-form.select name="category_id" label="Category" :data="$categories" />
                         <x-form.input name="title" label="Product Title" />
                         <label for="description" class="text-sm font-medium text-gray-500 dsark:text-gray-500">Description</label>
                         <div>
-                            <textarea class="ckeditor" id="editor" name="description" cols="30" rows="10"></textarea>
+                            <textarea name="description" id="myeditorinstance" cols="30" rows="10"></textarea>
                             @error('description')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
                             @enderror
                         </div>
-                        <x-form.textarea name="short_description" label="Short Description" />
+                        <x-form.textarea name="short_description"  label="Short Description" />
                         <div class="grid grid-cols-2 gap-4">
                             <div class="col-span-2">
                                 <x-form.input name="price" type="number" label="Price" />
@@ -89,12 +90,17 @@
 
                         <div class="col-span-2">
                             <label for="thumbnail" class="text-gray-500 dark:text-gray-500 text-sm font-medium">Image</label>
-                            <input name="thumbnail" class="dropify" type="file" id="myDropify">
+                            <input name="thumbnail" class="dropify" type="file" id="myDropify" >
+                        </div>
+                        <div>
+                            <label for="slider" class="block text-sm font-medium mb-2 dark:text-white">
+                                Slider</label>
+                            <input class="dropify"type="file" id="slider" name="sliders[]" multiple>
                         </div>
                     </div>
 
                 </div>
-                <x-form.submit-button />
+                <x-form.submit-button/>
             </form>
         </div>
     </div>
@@ -107,6 +113,7 @@
     <link rel="stylesheet" href="{{ asset('css/dropify.min.css') }}">
     {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+    <script src="{{asset('tinymce/js/tinymce/tinymce.min.js')}}"></script>
     <style>
         .dropify-message p {
             font-size: 24px
@@ -120,6 +127,9 @@
             vertical-align: middle;
             width: 100% !important;
         }
+        .tox .tox-promotion-link {
+            visibility: hidden;
+        }
     </style>
 @endpush
 
@@ -127,10 +137,21 @@
 @push('scripts')
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> --}}
-    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
-    <script src="{{ asset('js/dropify.min.js') }}"></script>
 
+    <script>
+        tinymce.init({
+            license_key: 'gpl',
+            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists image',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | image',
+            image_title: true,
+            file_picker_types: 'image',
+            image_uploadtab: true,
+            paste_data_images:false,
+            images_upload_url: '{{ route('editorimagestore') . '?_token=' . csrf_token() }}',
+            automatic_uploads: true,
+        });
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -144,14 +165,14 @@
             $('.meta_keyword').select2({
                 tags: true
             });
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Drag and drop a file here or click',
-                    'replace': 'Drag and drop or click to replace',
-                    'remove': 'Remove',
-                    'error': 'Ooops, something wrong happended.'
-                }
-            });
+            // $('.dropify').dropify({
+            //     messages: {
+            //         'default': 'Drag and drop a file here or click',
+            //         'replace': 'Drag and drop or click to replace',
+            //         'remove': 'Remove',
+            //         'error': 'Ooops, something wrong happended.'
+            //     }
+            // });
 
             $('#addButton').on('click', function() {
                 $('#attributeSection').append(`

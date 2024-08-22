@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('price');
             $table->enum('status',['active','deactive','draft'])->default('draft');
             $table->string('thumbnail')->nullable();
+            $table->json('slider')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('author_id');
             //seo section

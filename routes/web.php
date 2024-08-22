@@ -42,12 +42,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test', function () {
     return view('test');
 });
-
+Route::get('/show', function () {
+    print_r(session()->all());
+});
+Route::get('/delete', function () {
+  session()-> flush();
+});
+// Route::get('/compare',[ProductPageController::class,' '])
 Route::get('/', [HomepageController::class, 'Homepage'])->name('homepage');
 Route::get('/products', [ProductPageController::class, 'products'])->name('productpage');
 Route::get('/product/{slug}', [ProductPageController::class, 'singleProduct'])->name('product.single');
 Route::get('/product-compare', [ProductCompareController::class, 'productCompare'])->name('product.compare');
 Route::get('/posts', [PostPageController::class, 'postPage'])->name('post.page');
+Route::get('/posts/{slug}', [PostPageController::class, 'singlePage'])->name('post.single');
 
 
 Route::get('search/',[SearchPageController::class,'index'])->name('search');

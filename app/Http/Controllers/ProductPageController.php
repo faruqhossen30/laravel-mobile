@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product\Product;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProductPageController extends Controller
 {
@@ -48,17 +49,15 @@ class ProductPageController extends Controller
         if (isset($_GET['keyword'])) {
             $keyword = trim($_GET['keyword']);
         }
-        $products = Product::with('categories','brand')->when($orderby, function ($query, $orderby) {
+        $products = Product::with('categories', 'brand')->when($orderby, function ($query, $orderby) {
             return $query->orderBy('id', $orderby);
-
-        })->when($keyword, function($query, $keyword){
+        })->when($keyword, function ($query, $keyword) {
             return $query->where('title', 'like', '%' . $keyword . '%');
-
-        })  ->when($brandids, function ($query, $brandids) {
+        })->when($brandids, function ($query, $brandids) {
             $query->whereHas('brand', function ($query) use ($brandids) {
                 $query->whereIn('brand_id', $brandids);
             });
-        }) ->when($catids, function ($query, $catids) {
+        })->when($catids, function ($query, $catids) {
             $query->whereHas('categories', function ($query) use ($catids) {
                 $query->whereIn('category_id', $catids);
             });
@@ -68,7 +67,7 @@ class ProductPageController extends Controller
             });
         })
 
-        ->paginate($per_page ?? 9);
+            ->paginate($per_page ?? 9);
 
         // return  $products;
 
@@ -78,25 +77,37 @@ class ProductPageController extends Controller
 
         // return $attributes;
 
-        return view($view =='list' ? 'productslist' : 'products',compact('products','brands','categories','attributes'));
+        return view($view == 'list' ? 'productslist' : 'products', compact('products', 'brands', 'categories', 'attributes'));
     }
     public function singleProduct($slug)
     {
-        $product = Product::with(['brand','items.attribute'])->firstWhere('slug', $slug);
+        $product = Product::with(['brand', 'items.attribute'])->firstWhere('slug', $slug);
         $list = $product->items;
         $attributes = collect($product->items)->unique('attribute_id')->values()->all();
 
-        $data = collect([]);
-        foreach($attributes as $key=> $item){
-                $attribute = [];
-                $attribute['id'] = $item->attribute->id;
-                $attribute['sort'] = $item->attribute->sort;
-                $attribute['name'] = $item->attribute->name;
-                $attribute['slug'] = $item->attribute->slug;
-                $attribute['items'] = $list->where('attribute_id', $item->attribute->id)->select('id','name','slug','description')->sortBy(['id', 'asc'])->values()->all();
-                $data[] = $attribute;
+        $compare = null;
+        if (isset($_GET['compare'])) {
+            $compare = trim($_GET['compare']);
+        }
+        // return $list;
+
+        // Session::store('product1_session')->put('product_id', $compare);
+        // $product1_id = Session::store('product1_session')->get('product_id');
+        // $image = json_decode($product->slider);
+        // return  $image;
+        // return gettype($product->slider);
+        // return $product->slider;
+            $data = collect([]);
+        foreach ($attributes as $key => $item) {
+            $attribute = [];
+            $attribute['id'] = $item->attribute->id;
+            $attribute['sort'] = $item->attribute->sort;
+            $attribute['name'] = $item->attribute->name;
+            $attribute['slug'] = $item->attribute->slug;
+            $attribute['items'] = $list->where('attribute_id', $item->attribute->id)->select('id', 'name', 'slug', 'description')->sortBy(['id', 'asc'])->values()->all();
+            $data[] = $attribute;
         }
         $data = $data->sortBy('sort')->values()->all();
-        return view('productpage', compact('product','data'));
+        return view('productpage', compact('product', 'data'));
     }
 }

@@ -15,7 +15,10 @@ class PostPageController extends Controller
         if (isset($_GET['per_page']) && $_GET['per_page']) {
             $per_page = $_GET['per_page'];
         }
-
+        $orderby = null;
+        if (isset($_GET['orderby']) && $_GET['orderby']) {
+            $orderby = $_GET['orderby'];
+        }
         // $news = null;
         // $latestnews = $request->news;
         $orderby = null;
@@ -27,16 +30,24 @@ class PostPageController extends Controller
             $category = $_GET['category'];
         }
 
-        // return $category;
-
-        // return $category;
+        // return $orderby;
         $posts = Post::when($orderby, function ($query, $orderby) {
             return $query->orderBy('id', $orderby);
-        })
-            ->paginate($per_page ?? 9);
+        })->when($category, function ($query, $category) {
+            $query->whereHas('categories', function ($query) use ($category) {
+                $query->whereIn('category_id', $category);
+            });
+        })->paginate($per_page ?? 9);
 
         $categories = Category::all();
         // return $latestnews;
         return view('posts', compact('posts', 'categories'));
+    }
+
+
+    public function singlePage($slug)
+    {
+        $post = Post::firstWhere('slug', $slug);
+        return view('single-post', compact('post'));
     }
 }

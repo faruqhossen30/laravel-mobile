@@ -21,6 +21,7 @@ class Product extends Model
         'price',
         'status',
         'thumbnail',
+        'slider',
         'brand_id',
         'author_id',
         'meta_title',

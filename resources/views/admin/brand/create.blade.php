@@ -16,7 +16,6 @@
                             <label for="thumbnail" class="text-gray-500 dark:text-gray-500 text-sm font-medium">Image</label>
                             <input name="thumbnail" class="dropify" type="file" id="myDropify">
                         </div>
-
                         <x-form.submit-button />
                     </form>
                 </div>

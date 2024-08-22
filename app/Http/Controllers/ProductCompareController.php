@@ -8,6 +8,9 @@ class ProductCompareController extends Controller
 {
     public function productCompare() {
 
+
+        $productid = session()->has('productid');
+        return   $productid;
         return view('productcompare');
 
     }

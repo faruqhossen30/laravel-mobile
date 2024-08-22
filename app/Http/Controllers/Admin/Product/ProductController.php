@@ -10,7 +10,7 @@ use App\Models\Product\ProductAttribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Session;
 class ProductController extends Controller
 {
     /**
@@ -39,16 +39,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // return $request->all();
-        $request->validate([
-            'title'          => 'required',
-            'description'    => 'required',
-            'category_id'    => 'required',
-            'price'          => 'required',
-            // 'thumbnail'      => 'required',
-        ]);
-
-        $metakeyword  = $request->meta_keywords;
-        // $keyword = implode(", ", $metakeyword);
+        if ($request->sliders) {
+            $imgs = [];
+            foreach ($request->sliders as $key => $slider) {
+                if (array_key_exists($key, $request->sliders)) {
+                    $file_name = $request->file('sliders')[$key]->store('product/slider');
+                    $imgs[] =   $file_name;
+                }
+            }
+        }
         $data = [
             'category_id'       => $request->category_id,
             'title'             => $request->title,
@@ -60,23 +59,22 @@ class ProductController extends Controller
             'brand_id'          => $request->brand_id,
             'author_id'         => Auth::user()->id,
             'meta_title'        => $request->meta_title,
+            'slider'            => json_encode($imgs),
             'meta_description'  => $request->meta_description,
             'meta_keyword'      => 'keyword',
             'status'            => $request->status,
         ];
-
         if ($request->file('thumbnail')) {
             $file_name = $request->file('thumbnail')->store('product/thumbnail');
             $data['thumbnail'] = $file_name;
         }
+        $product   =  Product::create($data);
 
-        $product = Product::create($data);
-
-        if($product && $request->attribute_value){
-            foreach($request->attribute_value as $key => $attribute){
+        if ($product && $request->attribute_value) {
+            foreach ($request->attribute_value as $key => $attribute) {
                 ProductAttribute::create([
-                    'product_id'=> $product->id,
-                    'attribute_value_id'=> $attribute
+                    'product_id' => $product->id,
+                    'attribute_value_id' => $attribute
                 ]);
             }
         }
@@ -97,7 +95,14 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::with('categories')->firstWhere('id', $id);
+        $categories = Category::get();
+        $brands = Brand::get();
+
+        $cat_ids = $product->categories->pluck('id')->toArray();
+
+        return view('admin.product.edit',compact('product','categories','brands'));
+
     }
 
     /**
@@ -105,8 +110,57 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => 'required'
+        ]);
+
+        if ($request->sliders) {
+            $imgs = [];
+            foreach ($request->sliders as $key => $slider) {
+                if (array_key_exists($key, $request->sliders)) {
+                    $file_name = $request->file('sliders')[$key]->store('product/slider');
+                    $imgs[] =   $file_name;
+                }
+            }
+        }
+        $data = [
+            'category_id'       => $request->category_id,
+            'title'             => $request->title,
+            'slug'              => Str::slug($request->title),
+            'description'       => $request->description,
+            'short_description' => $request->short_description,
+            'price'             => $request->price,
+            'status'            => $request->status,
+            'brand_id'          => $request->brand_id,
+            'author_id'         => Auth::user()->id,
+            'meta_title'        => $request->meta_title,
+            'slider'            => json_decode($imgs),
+            'meta_description'  => $request->meta_description,
+            'meta_keyword'      => 'keyword',
+            'status'            => $request->status,
+
+        ];
+
+        if ($request->file('thumbnail')) {
+            $file_name = $request->file('thumbnail')->store('product/thumbnail');
+            $data['thumbnail'] = $file_name;
+        }
+
+        $product = Product::firstWhere('id', $id)->update($data);
+
+        if ($product && $request->attribute_value) {
+            foreach ($request->attribute_value as $key => $attribute) {
+                ProductAttribute::create([
+                    'product_id' => $product->id,
+                    'attribute_value_id' => $attribute
+                ]);
+            }
+        }
+        Session::flash('create');
+        return redirect()->route('portfolio.index');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
